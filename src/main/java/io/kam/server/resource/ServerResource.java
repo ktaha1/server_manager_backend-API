@@ -11,12 +11,14 @@ import static org.springframework.http.HttpStatus.OK;
 
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
 import static java.time.LocalDateTime.now;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -81,6 +83,19 @@ public class ServerResource {
         );
     }
 
+    @PutMapping("/update")
+    public ResponseEntity<Response> updateServer(@RequestBody @Valid Server server){
+        return ResponseEntity.ok(
+                Response.builder()
+                        .timeStamp(now())
+                        .data(Collections.singletonMap("server", service.update(server)))
+                        .message("Server updated")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .build()
+        );
+    }
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Response> deleteServer(@PathVariable Long id){
         return ResponseEntity.ok(
@@ -96,6 +111,7 @@ public class ServerResource {
 
     @GetMapping(path = "/img/{fileName}", produces = IMAGE_PNG_VALUE)
     public byte[] getServerImage(@PathVariable String fileName) throws IOException {
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "Download/images"+fileName));
+        File file = ResourceUtils.getFile("classpath:img/"+fileName);
+        return Files.readAllBytes(file.toPath());
     }
 }

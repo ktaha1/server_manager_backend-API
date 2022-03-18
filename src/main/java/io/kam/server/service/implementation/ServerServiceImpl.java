@@ -30,7 +30,7 @@ public class ServerServiceImpl implements ServerService {
         InetAddress address = InetAddress.getByName(ipAddress);
         server.setStatus(address.isReachable(10000) ? Status.SERVER_UP : Status.SERVER_DOWN);
         repo.save(server);
-        return null;
+        return server;
     }
 
     @Override
@@ -49,7 +49,7 @@ public class ServerServiceImpl implements ServerService {
     @Override
     public Server get(Long id) {
         log.info("Fetching server by id : {}", id);
-        return repo.getById(id);
+        return repo.findById(id).get();
     }
 
     @Override
@@ -67,6 +67,6 @@ public class ServerServiceImpl implements ServerService {
 
     private String setServerImageUrl() {
         String[] imageNames = {"server1.png", "server2.png", "server3.png","server4.png"};
-        return "img/".concat(imageNames[new Random().nextInt(4)]);
+        return imageNames[new Random().nextInt(4)];
     }
 }
