@@ -1,10 +1,10 @@
 server:
-  port: 3330
+  port: 8081
 
 spring:
   datasource:
     username: root
-    password: pas123
+    password: kam123
     url: jdbc:mysql://localhost:3306/serverdb
 
   jpa:
