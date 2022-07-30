@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     username: root
-    password: kam123
+    password: 82618261
     url: jdbc:mysql://localhost:3306/serverdb
 
   jpa:
