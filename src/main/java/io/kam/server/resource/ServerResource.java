@@ -30,6 +30,12 @@ import java.util.Collections;
 public class ServerResource {
     private final ServerServiceImpl service;
 
+    @GetMapping("/hello")
+    public String helloEndPoint(){
+        return "Hello world";
+    }
+
+
     @GetMapping("/list")
     public ResponseEntity<Response> getServers(){
         return ResponseEntity.ok(

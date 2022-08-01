@@ -3,6 +3,7 @@ package io.kam.server.model;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import org.springframework.http.HttpStatus;
 
@@ -10,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @Data
+@NoArgsConstructor
 @SuperBuilder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Response {
