@@ -4,11 +4,14 @@ import io.kam.server.enumeration.Status;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Data
+@SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Server {
