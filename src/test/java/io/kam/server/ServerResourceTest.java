@@ -13,10 +13,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ServerApplicationTests {
+public class ServerResourceTest {
     @Autowired
     private ServerResource serverResource;
 
@@ -28,7 +26,7 @@ public class ServerApplicationTests {
     private RestTemplate restTemplate;
 
     @Test
-    @DisplayName("COntext must be loaded ")
+    @DisplayName("Context must be loaded ")
     public void contextLoad(){
         assertThat(serverResource).isNotNull();
     }
@@ -41,8 +39,9 @@ public class ServerApplicationTests {
         ResponseEntity<Response> restResponse = restTemplate.getForEntity(uri, Response.class);
         Response response = restResponse.getBody();
 
-        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
+        assertThat(response).isNotNull();
         assertThat(response.getData().isEmpty()).isFalse();
+        assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
     }
 
     @Test
@@ -52,7 +51,8 @@ public class ServerApplicationTests {
         String uri = resourceBaseUrl+port+"/server/ping/192.168.1.1";
         ResponseEntity<Response> restResponse = restTemplate.getForEntity(uri, Response.class);
         Response response = restResponse.getBody();
-        
+
+        assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo(HttpStatus.OK);
     }
 }
