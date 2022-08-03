@@ -10,6 +10,7 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Getter
 @Setter
+@ToString
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
