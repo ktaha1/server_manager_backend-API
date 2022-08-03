@@ -5,7 +5,7 @@ import io.kam.server.model.Server;
 import io.kam.server.repo.ServerRepo;
 import io.kam.server.service.implementation.ServerServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-import org.assertj.core.api.Assertions;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -53,7 +53,19 @@ public class ServerServiceTests {
 
         //Then - Verify the output
         log.info("Saved Server : {}", savedServer);
-        Assertions.assertThat(savedServer).isNotNull();
+        assertThat(savedServer).isNotNull();
+    }
+
+    @Test
+    @DisplayName("JUnit test for Get() method")
+    public void givenServerId_whenGetServerById_thenReturnServerObject(){
+        given(serverRepo.findById(server.getId()))
+                .willReturn(Optional.of(server));
+
+        Server foundedServer = serverService.get(server.getId());
+
+        log.info("Founded Server : {}",foundedServer);
+        assertThat(foundedServer).isNotNull();
     }
 
 }
