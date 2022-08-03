@@ -1,8 +1,7 @@
-package io.kam.server;
+package io.kam.server.resource;
 
 import io.kam.server.model.Response;
 import io.kam.server.model.Server;
-import io.kam.server.resource.ServerResource;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ServerResourceTest {
+public class ServerResourceTests {
     @Autowired
     private ServerResource serverResource;
 
