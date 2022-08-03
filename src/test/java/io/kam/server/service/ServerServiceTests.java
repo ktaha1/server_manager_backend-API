@@ -68,4 +68,17 @@ public class ServerServiceTests {
         assertThat(foundedServer).isNotNull();
     }
 
+    @Test
+    @DisplayName("JUnit test for Update() method")
+    public void givenServerObject_whenUpdate_thenReturnUpdatedServer(){
+        given(serverRepo.save(server))
+                .willReturn(server);
+        server.setStatus(Status.SERVER_DOWN);
+
+        Server updatedServer = serverService.update(server);
+
+        log.info("Updated Server : {}",updatedServer);
+        assertThat(updatedServer.getStatus()).isEqualTo(Status.SERVER_DOWN);
+    }
+
 }
