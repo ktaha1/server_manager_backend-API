@@ -11,6 +11,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -79,6 +81,18 @@ public class ServerServiceTests {
 
         log.info("Updated Server : {}",updatedServer);
         assertThat(updatedServer.getStatus()).isEqualTo(Status.SERVER_DOWN);
+    }
+
+    @Test
+    @DisplayName("JUnit test for Delete() method")
+    public void givenServerId_whenDeleteServer_thenReturnTrue(){
+        willDoNothing().given(serverRepo)
+                .deleteById(server.getId());
+
+        boolean isDeleted = serverService.delete(server.getId());
+
+        assertThat(isDeleted).isTrue();
+
     }
 
 }
