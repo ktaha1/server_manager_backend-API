@@ -5,11 +5,14 @@ import io.kam.server.model.Server;
 import io.kam.server.repo.ServerRepo;
 import io.kam.server.service.implementation.ServerServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+
 import static org.assertj.core.api.Assertions.assertThat;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 
@@ -32,7 +35,7 @@ public class ServerServiceTests {
     private Server server;
 
     @BeforeEach
-    public void setup(){
+    public void setup() {
         this.server = Server.builder()
                 .id(10L)
                 .name("Testing Server")
@@ -43,7 +46,7 @@ public class ServerServiceTests {
 
     @Test
     @DisplayName("JUnit Test for Save() method")
-    public void givenServerObject_whenSaveServer_thenReturnServerObject(){
+    public void givenServerObject_whenSaveServer_thenReturnServerObject() {
         //Given - precondition or setup
         /*given(serverRepo.findById(this.server.getId()))
                 .willReturn(Optional.empty());*/
@@ -56,36 +59,37 @@ public class ServerServiceTests {
         //Then - Verify the output
         log.info("Saved Server : {}", savedServer);
         assertThat(savedServer).isNotNull();
+        assertThat(savedServer.getImageUrl()).isNotEmpty();
     }
 
     @Test
     @DisplayName("JUnit test for Get() method")
-    public void givenServerId_whenGetServerById_thenReturnServerObject(){
+    public void givenServerId_whenGetServerById_thenReturnServerObject() {
         given(serverRepo.findById(server.getId()))
                 .willReturn(Optional.of(server));
 
         Server foundedServer = serverService.get(server.getId());
 
-        log.info("Founded Server : {}",foundedServer);
+        log.info("Founded Server : {}", foundedServer);
         assertThat(foundedServer).isNotNull();
     }
 
     @Test
     @DisplayName("JUnit test for Update() method")
-    public void givenServerObject_whenUpdate_thenReturnUpdatedServer(){
+    public void givenServerObject_whenUpdate_thenReturnUpdatedServer() {
         given(serverRepo.save(server))
                 .willReturn(server);
         server.setStatus(Status.SERVER_DOWN);
 
         Server updatedServer = serverService.update(server);
 
-        log.info("Updated Server : {}",updatedServer);
+        log.info("Updated Server : {}", updatedServer);
         assertThat(updatedServer.getStatus()).isEqualTo(Status.SERVER_DOWN);
     }
 
     @Test
     @DisplayName("JUnit test for Delete() method")
-    public void givenServerId_whenDeleteServer_thenReturnTrue(){
+    public void givenServerId_whenDeleteServer_thenReturnTrue() {
         willDoNothing().given(serverRepo)
                 .deleteById(server.getId());
 
