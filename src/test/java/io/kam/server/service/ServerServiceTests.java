@@ -5,14 +5,11 @@ import io.kam.server.model.Server;
 import io.kam.server.repo.ServerRepo;
 import io.kam.server.service.implementation.ServerServiceImpl;
 import lombok.extern.slf4j.Slf4j;
-
 import static org.assertj.core.api.Assertions.assertThat;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
 
