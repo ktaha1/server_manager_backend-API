@@ -41,7 +41,7 @@ public class ServerResource {
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(now())
-                        .data(Collections.singletonMap("servers", service.list(30)))
+                        .data(Collections.singletonMap("servers", service.list()))
                         .message("Servers retrieved")
                         .status(OK)
                         .statusCode(OK.value())

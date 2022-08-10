@@ -6,7 +6,6 @@ import io.kam.server.repo.ServerRepo;
 import io.kam.server.service.ServerService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -41,9 +40,9 @@ public class ServerServiceImpl implements ServerService {
     }
 
     @Override
-    public Collection<Server> list(int limit) {
+    public Collection<Server> list() {
         log.info("Fetching all servers");
-        return repo.findAll(PageRequest.of(0, limit)).toList();
+        return repo.findAll();
     }
 
     @Override

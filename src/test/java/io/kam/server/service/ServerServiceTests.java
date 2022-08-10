@@ -6,6 +6,8 @@ import io.kam.server.repo.ServerRepo;
 import io.kam.server.service.implementation.ServerServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import static org.assertj.core.api.Assertions.assertThat;
+
+import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -19,7 +21,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
+import java.util.*;
 
 @ExtendWith(MockitoExtension.class)
 @Slf4j
@@ -94,6 +96,24 @@ public class ServerServiceTests {
 
         assertThat(isDeleted).isTrue();
 
+    }
+
+    @Test
+    @DisplayName("Test for list() method")
+    public void givenLimit_whenGetList_thenReturnListServers(){
+        // Given
+        List<Server> ser = Lists.list(new Server(), new Server());
+        given(serverRepo.findAll())
+                .willReturn(ser);
+
+        // When
+        Collection<Server> servers = serverService.list();
+
+        // Then
+        assertThat(servers)
+                .isNotNull()
+                .asList()
+                .hasSize(2);
     }
 
 }
