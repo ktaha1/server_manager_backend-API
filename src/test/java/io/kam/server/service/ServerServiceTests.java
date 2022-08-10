@@ -12,7 +12,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.Mockito.verify;
 
+import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -42,21 +44,19 @@ public class ServerServiceTests {
     }
 
     @Test
-    @DisplayName("JUnit Test for Save() method")
+    @DisplayName("Test for Save() method")
     public void givenServerObject_whenSaveServer_thenReturnServerObject() {
-        //Given - precondition or setup
-        /*given(serverRepo.findById(this.server.getId()))
-                .willReturn(Optional.empty());*/
-        given(serverRepo.save(server))
-                .willReturn(server);
 
-        // When - Action or behavior that we re going to test
-        Server savedServer = serverService.create(this.server);
+        // When
+        serverService.create(this.server);
 
-        //Then - Verify the output
-        log.info("Saved Server : {}", savedServer);
-        assertThat(savedServer).isNotNull();
-        assertThat(savedServer.getImageUrl()).isNotEmpty();
+        // Then
+        ArgumentCaptor<Server> serverArgumentCaptor = ArgumentCaptor.forClass(Server.class);
+        verify(serverRepo).save(serverArgumentCaptor.capture());
+        Server capturedServer = serverArgumentCaptor.getValue();
+        log.info("Saved Server : {}", capturedServer);
+        assertThat(capturedServer).isNotNull();
+        assertThat(capturedServer.getImageUrl()).isNotEmpty();
     }
 
     @Test
